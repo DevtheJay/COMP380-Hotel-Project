@@ -245,7 +245,13 @@ public class HotelReservationApp {
         frame.pack();
         frame.setVisible(true);
     }
-
+    /**
+     * Method to validate the booking information
+     * @param checkIn takes in check in date
+     * @param checkOut takes in check out date
+     * @param howMany   takes in the number of people staying in room
+     * @return boolean returns true if the booking is valid, false otherwise
+     */
     private boolean bookNow(String checkIn, String checkOut, int howMany) {
         // Check if the date format is valid (month/day/year)
         if (!isValidDateFormat(checkIn) || !isValidDateFormat(checkOut)) {
@@ -395,6 +401,9 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         imagePanel.add(imageLabel, BorderLayout.CENTER);
         roomCard.add(imagePanel, BorderLayout.WEST);
     
+        /**
+         * Method to handle the timer for the images of the rooms
+         */
         Timer timer = new Timer(2000, new ActionListener() {
             int imageIndex = 0;
             String[][] imagePaths = {
@@ -427,6 +436,7 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
             };
     
             @Override
+            
             public void actionPerformed(ActionEvent e) {
                 String[] currentRoomImages = imagePaths[roomNumber - 1];
                 ImageIcon image = new ImageIcon(currentRoomImages[imageIndex]);
@@ -484,8 +494,16 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         sqftLabel.setForeground(textColor);
         featuresLabel.setForeground(textColor);
         JButton bookNowButton = new JButton("Book Now");
+        
+        /**
+         * Method to handle booking the room
+         */
         bookNowButton.addActionListener(new ActionListener() {
             @Override
+            
+            /**
+             * Method to handle booking the room
+             */
             public void actionPerformed(ActionEvent e) {
                 // Implement the booking logic for the selected room
                 String roomInfo = "Room " + roomNumber + "\nView: " + viewLabel.getText() +
@@ -535,7 +553,16 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         return roomCard;
     }
     
-
+    /**
+     * Method to add a label and editable text field to a panel
+     * @param panel Passes in the panel
+     * @param component Passes in the component
+     * @param gridx Passes in the gridx
+     * @param gridy Passes in the gridy
+     * @param gridwidth Passes in the gridwidth
+     * @param gridheight Passes in the gridheight
+     * @param anchor Passes in the anchor
+     */
     private void addComponent(JPanel panel, JComponent component, int gridx, int gridy,
                             int gridwidth, int gridheight, int anchor) {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -547,7 +574,10 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         gbc.insets = new Insets(5, 5, 5, 5);
         panel.add(component, gbc);
     }   
-    
+    /**
+     * Method to get random views
+     * @return String returns the random views
+     */
    private String getRandomView() {
         String[] views = {"Ocean View", "Mountain View", "City View", "Garden View"};
         int randomIndex = (int) (Math.random() * views.length);
@@ -555,6 +585,10 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
     }
 
     // Helper method to generate random features
+    /**
+     * Method to get random features
+     * @return String returns the random features
+     */
     private String getRandomFeatures() {
         String[] features = {"Balcony", "Mini Bar", "Jacuzzi", "Kitchenette"};
         int numFeatures = (int) (Math.random() * (features.length - 1)) + 1;
@@ -570,13 +604,19 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
 
         return selectedFeatures.toString();
     }
-
+    /**
+     * Method to create and show the original GUI
+     */
     private void showOriginalGUI() {
         bookingFormFrame.dispose(); // Close the booking form GUI
         frame.setVisible(true);     // Show the original GUI
     }
 
-
+/**
+ * Method to get the beds label
+ * @param numPeople Passes in the number of people from that was gathered earlier from the user
+ * @return String returns the beds label
+ */
     
     private String getBedsLabel(int numPeople) {
         // Determine and return the beds label based on the number of people
@@ -590,7 +630,11 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
             return "Beds: 4 (Villa)";
         }
     }
-    
+    /**
+     * Method to get the bathrooms label
+     * @param numPeople Passes in the number of people from that was gathered earlier from the user
+     * @return String returns the bathrooms label
+     */
     private String getBathroomsLabel(int numPeople) {
         // Determine and return the bathrooms label based on the number of people
         if (numPeople == 1) {
@@ -603,13 +647,26 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
             return "Bathrooms: 3 (Villa)";
         }
     }
-
+    /**
+     * Method to add a label and editable text field to a panel
+     * @param roomInfo Passes in the room information from that was gathered earlier from the user
+     * @return boolean returns true if the room is booked, false otherwise
+     */
     private boolean bookRoom(String roomInfo) {
         // Implement your booking logic here
         // You can use JDBC code to insert the reservation into the database
         // Return true if booking is successful, false otherwise
         return true; // Placeholder, update as needed
     }
+    
+    /**
+     * Method to add a label and editable text field to a panel for the contact/payment information
+     * @param checkInDate Passes in  the check in date from that was gathered earlier from the user
+     * @param checkOutDate Passes in the check out date from that was gathered earlier from the user
+     * @param numTravelers Passes in the number of travelers from that was gathered earlier from the user
+     * @param roomNumber Passes in the room number from that was gathered earlier from the user
+     * @param priceLabel Passes in the price label from that was gathered earlier from the user
+     */
     private void createAndShowContactPaymentGUI(String checkInDate, String checkOutDate, int numTravelers, int roomNumber, String priceLabel) {
         // Create the JFrame
         JFrame contactPaymentFrame = new JFrame("Contact and Payment Information");
@@ -735,6 +792,10 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
 
     completeBookingButton.addActionListener(new ActionListener() {
         @Override
+        
+        /**
+         * Method to handle the booking completion
+         */
         public void actionPerformed(ActionEvent e) {
             // Retrieve data from text fields
             String fullName = fullNameField.getText();
@@ -809,7 +870,14 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
     }
     
     
-    
+    /**
+     * Helper method to add a label and field to a panel for the total breakdown
+     * @param panel object to add the label and field to
+     * @param gbc GridBagConstraints object
+     * @param labelText text for the label
+     * @param fieldValue text for the field
+     * @param gridY gridy value for the GridBagConstraints object
+     */
     
     private void addLabelAndField(JPanel panel, GridBagConstraints gbc, String labelText, String fieldValue, int gridY) {
         JLabel label = new JLabel(labelText);
@@ -825,7 +893,12 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         panel.add(labelFieldPanel, gbc);
     }
     
-    
+    /**
+     * Helper method to add a total breakdown item to a panel for the total breakdown
+     * @param panel object to add the item to
+     * @param labelText text for the label
+     * @param valueText text for the value
+     */
     private void addTotalBreakdownItem(JPanel panel, String labelText, String valueText) {
         JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel label = new JLabel(labelText);
@@ -836,6 +909,14 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         itemPanel.add(value);
         panel.add(itemPanel);
     }
+    /**
+     * Helper method to add a label and editable field to a panel
+     * @param panel object to add the label and field to
+     * @param gbc GridBagConstraints object
+     * @param labelText text for the label
+     * @param field JTextField object
+     * @param gridy gridy value for the GridBagConstraints object
+     */
     private void addLabelAndEditableField(JPanel panel, GridBagConstraints gbc, String labelText, JTextField field, int gridy) {
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -849,7 +930,10 @@ bookingFormFrame.add(titlePanel, BorderLayout.NORTH);
         panel.add(labelFieldPanel, gbc);
     }
     
-
+    /**
+     * Main method to create the GUI
+     * @param args takes in command line arguments
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new HotelReservationApp());
     }
